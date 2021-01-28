@@ -73,7 +73,6 @@
             return false;
         }else{
             userData.username = uname;
-            localStorage.setItem('userData', JSON.stringify(userData));
         }
 
         if(fname == ""){
@@ -81,7 +80,6 @@
             return false;
         }else{
             userData.firstname = fname;
-            localStorage.setItem('userData', JSON.stringify(userData));
         }
 
         if(lname == ""){
@@ -89,7 +87,6 @@
             return false;
         }else{
             userData.lastname = lname;
-            localStorage.setItem('userData', JSON.stringify(userData));
         }
 
         if(pass == ""){
@@ -97,7 +94,6 @@
             return false;
         }else{
             userData.password = pass;
-            localStorage.setItem('userData', JSON.stringify(userData));
         }
 
         if(gen == ""){
@@ -105,7 +101,6 @@
             return false;
         }else{
             userData.gender = gen;
-            localStorage.setItem('userData', JSON.stringify(userData));
         }
         // else if(/[^a-zA-Z]/.test(firstname)){
             // alert("Please enter valid name");
@@ -115,16 +110,14 @@
             return false;
         }else{
             userData.address = addr;
-            localStorage.setItem('userData', JSON.stringify(userData));
         }
 
+        localStorage.setItem('userData', JSON.stringify(userData));
         // userData.username = uname;
         // userData.firstname = fname;
         // userData.lastname = lname;
         // userData.gender = gen;
         // userData.address = addr;
-        document.forms['register'].classList = 'hide';
-        document.forms['login'].classList.remove('hide');
         // localStorage.setItem('userData', userData);
     }
 
@@ -165,3 +158,13 @@
     // }
 
 
+//
+function signup(){
+    document.forms['login'].classList = 'hide';
+    document.forms['register'].classList.remove('hide');
+}
+
+function signin(){
+    document.forms['register'].classList = 'hide';
+    document.forms['login'].classList.remove('hide');
+}

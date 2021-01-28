@@ -26,3 +26,13 @@ body{
 .clearfix{
     clear:both;
 }
+.completed{
+    text-decoration-line: line-through;
+    background: #dcfbe4;
+}
+.pending{
+    background: #fbdce3;
+}
+#todo .btn-default{
+    border: 1px solid #ddd;
+}

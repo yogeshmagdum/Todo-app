@@ -49,8 +49,10 @@
                     <td><input type="checkbox" class="status" id="check_${index}" onclick="changeStatus(${index})"/></td>
                     <td>${item.name}</td>
                     <td><label class="control-label">${item.date}</label></td>
-                    <td><button class="btn btn-primary" onclick="editTodo(${index})"><i class="fa fa-edit"></i></button></td>
-                    <td><button class="btn btn-danger" onclick="deleteTodo(${index})"><i class="fa fa-trash"></i></button></td>
+                    <td class="text-right">
+                    <button class="btn btn-default" onclick="editTodo(${index})"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-default" onclick="deleteTodo(${index})"><i class="fa fa-trash"></i></button>
+                    </td>
                     </tr>`
         });
         todoTable.innerHTML = tr;
@@ -104,7 +106,7 @@
     searchtodoList.addEventListener('input', function(){
         let todotrList = document.querySelectorAll('tr');
         Array.from(todotrList).forEach(function(item){
-            let searchText = item.getElementsByTagName('td')[0].innerText;
+            let searchText = item.getElementsByTagName('td')[1].innerText;
             let searchTextboxval = searchtodoList.value;
             // let regSearch = new RegExp(searchTextboxval, 'gi');
             if(searchText.match(searchTextboxval)){
@@ -122,10 +124,10 @@
         let todostatus = document.getElementById('check_'+index);
         if(todostatus.checked == true){
             todolistArr[index].done = true;
-            todostatus.classList = 'completed';
+            document.getElementById('row_'+index).classList = 'completed';
         }else{
             todolistArr[index].done = false;
-            todostatus.classList = 'pending';
+            // document.getElementById('row_'+index).classList = 'pending';
         }
         localStorage.setItem('storeTodoList', JSON.stringify(todolistArr));
     }
@@ -144,11 +146,6 @@
         document.forms['myprofile']['gender'].value = userdata.gender;
         document.forms['myprofile']['address'].value = userdata.address;
     })
-    function myprofile(){
-        // let myprofileElement = document.getElementById('profiledetails');
-        // myprofileElement.classList.remove('hide')
-    }
-
 
     // Update profile
         function updateprofile(){

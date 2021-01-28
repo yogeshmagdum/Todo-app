@@ -25,12 +25,16 @@
                                 <span id="pass" class="text-danger"></span>
                             </div>
 		            		<!-- <div class="text-center mt-4">  -->
-		            			<input id="login" type="submit" class="btn btn-primary mt-4 w-100" value="Login" />
+		            			<input id="login" type="submit" class="btn btn-primary mt-4 w-100" value="SignIn" />
 		            		<!-- </div> -->
+                            <div class="pt-3">
+                                <span>Create an account</span>
+                                <a id="signupbtn" href="javascript:void(0)" onclick="signup()"> Sign Up? </a>
+                            </div>
 		            	</form>
 		            </div>
                     <div class="">
-		            	<form name="register" class="register hide"> 
+		            	<form name="register" class="register hide" method="post" onsubmit="registration()"> 
 		            		<h1> Sign up </h1>
                             <div class="form-group"> 
 	                            <label> Username or your email </label>
@@ -74,6 +78,10 @@
 		            		<!-- <div class="text-center">  -->
 		            			<input type="submit" class="btn btn-success mt-4 w-100" value="Sign Up" id="signin" /> 
 		            		<!-- </div> -->
+                            <div class="pt-3">
+                                <span>Already have an account</span>
+                                <a id="loginbtn" href="javascript:void(0)" onclick="signin()"> Sign In </a>
+                            </div>
 		            	</form>
 		            </div>
                 </div>
