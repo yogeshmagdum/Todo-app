@@ -1,0 +1,28 @@
+body{
+    background: #f9f9f9;
+}
+.bg-white{
+    background: #fff;
+}
+.hide{
+    display:none;
+}
+.login-registration-form{
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.wrapper{
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 5px;
+    padding: 30px;
+}
+.bg-img{
+    background: url('../img/bg-img.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.clearfix{
+    clear:both;
+}

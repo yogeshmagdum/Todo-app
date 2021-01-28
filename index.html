@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+        <link rel="stylesheet" href="./css/style.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    </head>
+    <body>
+        <div class="">
+        <div class="container">
+            <div class="row login-registration-form">
+                <div class="wrapper col-md-5">
+                    <div class="">
+		            	<form name="login" class="login "> 
+		            		<h1>Log in</h1> 
+		            		<div class="form-group"> 
+		            			<label> Username or your email </label>
+		            			<input class="form-control" id="username" name="username" type="text" placeholder="username or mymail@mail.com"/>
+                                <span id="logname" class="text-danger"></span>
+                            </div>
+		            		<div class="form-group"> 
+		            			<label> Your password </label>
+		            			<input class="form-control" id="password" name="password" type="password" /> 
+                                <span id="pass" class="text-danger"></span>
+                            </div>
+		            		<!-- <div class="text-center mt-4">  -->
+		            			<input id="login" type="submit" class="btn btn-primary mt-4 w-100" value="Login" />
+		            		<!-- </div> -->
+		            	</form>
+		            </div>
+                    <div class="">
+		            	<form name="register" class="register hide"> 
+		            		<h1> Sign up </h1>
+                            <div class="form-group"> 
+	                            <label> Username or your email </label>
+	                            <input class="form-control" id="username" autocomplete="off" name="username" type="text" placeholder="username or mymail@mail.com"/>
+                                <span id="uname" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label> First Name </label>
+                                <input class="form-control" id="firstname" autocomplete="off" type="text" name="firstname"/>
+                                <span id="fname" class="text-danger"></span>
+
+                            </div>
+                            <div class="form-group">
+                                <label > Last Name </label>
+                                <input class="form-control" id="lastname" autocomplete="off" type="text" name="lastname"/>
+                                <span id="lname" class="text-danger"></span>
+                            </div>
+                            <div class="form-group"> 
+                                <label> Your password </label>
+                                <input class="form-control" id="password" name="password" type="password" /> 
+                                <span id="pass" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label > Gender</label>
+                                <div>
+                                    <input id="male" type="radio" name="gender" value="male"/>Male
+                                    <input id="female" type="radio" name="gender" value="female"/>Female
+                                </div>
+                                <span id="gender" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label >Address</label>
+                                <textarea class="form-control" id="address" autocomplete="off" class="form-control" name="address" cols="4" rows="2"></textarea>
+                                <span id="addr" class="text-danger"></span>
+                            </div>
+                            <!-- <div class="form-group"> -->
+                                <!-- <label>Profile Image</label> -->
+                                <!-- <input type="file" id="profileimg" name="profileimg" accept="image/*"> -->
+                                <!-- <span id="pimg" class="text-danger"></span> -->
+                            <!-- </div> -->
+		            		<!-- <div class="text-center">  -->
+		            			<input type="submit" class="btn btn-success mt-4 w-100" value="Sign Up" id="signin" /> 
+		            		<!-- </div> -->
+		            	</form>
+		            </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+        <script src="./js/index.js"></script>
+    </body>
+</html>
