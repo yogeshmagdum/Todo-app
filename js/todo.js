@@ -32,6 +32,8 @@
     // ShowTodo list
     function showTodoList(){
         let storeData = localStorage.getItem('storeTodoList');
+        let userData = JSON.parse(localStorage.getItem('userData'));
+        document.getElementById('navbarDropdown').innerText = userData.username;
         if(storeData == null){
             todolistArr = [];
         }else{
@@ -260,7 +262,7 @@
                 todolistArr.sort((a,b)=> new Date(b.date) - new Date(a.date));
                 localStorage.setItem('storeTodoList', JSON.stringify(todolistArr));
                 showTodoList();
-                break;
+            break;
 
         }
     }
