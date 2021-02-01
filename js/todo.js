@@ -5,7 +5,6 @@
     let createtodoBtn = document.getElementById('createTodo');
     let updateTodobtn = document.getElementById('updateTodo');
 
-
     createtodoBtn.addEventListener('click', function(){
         inputtodoVal = inputtodo.value;
         tododateVal = tododate.value;
@@ -45,10 +44,10 @@
 
         let todoTable = document.getElementById('todo');
         todolistArr.forEach((item, index) => {
-            tr += `<tr id="row_${index}">
-                    <td><input type="checkbox" class="status" id="check_${index}" onclick="changeStatus(${index})"/></td>
+            tr += `<tr id="row_${index}" class="${item.done ? 'completed' : ''}">
+                    <td><input type="checkbox" class="status" id="check_${index}" ${item.done ? 'checked' : ''} onclick="changeStatus(${index})"/></td>
                     <td>${item.name}</td>
-                    <td><label class="control-label">${item.date}</label></td>
+                    <td><label class="control-label">${item.date.split('-').reverse().join('-')}</label></td>
                     <td class="text-right">
                     <button class="btn btn-default" onclick="editTodo(${index})"><i class="fa fa-edit"></i></button>
                     <button class="btn btn-default" onclick="deleteTodo(${index})"><i class="fa fa-trash"></i></button>
@@ -56,6 +55,10 @@
                     </tr>`
         });
         todoTable.innerHTML = tr;
+        if(todoTable.innerHTML.length > 0){
+            var deleteAllbtn = document.getElementById('deleteAll')
+            deleteAllbtn.classList.remove('hide');
+        }
     }
 
 
@@ -94,15 +97,19 @@
         let storeData = localStorage.getItem('storeTodoList');
         todolistArr = JSON.parse(storeData);
         todolistArr.splice(index, 1);
-        localStorage.setItem('storeTodoList', JSON.stringify(todolistArr));
+        if(todolistArr > 0){
+            localStorage.setItem('storeTodoList', JSON.stringify(todolistArr));
+        }else{
+            localStorage.removeItem('storeTodoList');
+            var deleteAllbtn = document.getElementById('deleteAll')
+            deleteAllbtn.classList += ' hide';
+        }
         showTodoList();
     }
 
 
     // Search todo's list
     let searchtodoList = document.getElementById('searchTodo');
-
-
     searchtodoList.addEventListener('input', function(){
         let todotrList = document.querySelectorAll('tr');
         Array.from(todotrList).forEach(function(item){
@@ -117,7 +124,7 @@
         })
     });
 
-
+    // change status with checkbox selection
     function changeStatus(index){
         let storeData = localStorage.getItem('storeTodoList');
         todolistArr = JSON.parse(storeData);
@@ -127,16 +134,17 @@
             document.getElementById('row_'+index).classList = 'completed';
         }else{
             todolistArr[index].done = false;
-            // document.getElementById('row_'+index).classList = 'pending';
+            document.getElementById('row_'+index).classList.remove('completed');
         }
         localStorage.setItem('storeTodoList', JSON.stringify(todolistArr));
     }
 
-    // Logout functionality redirect to the login page
+    // Logout button click redirect to the login page
     function logout(){
         window.location.replace('index.html');
     }
 
+    // myprofile user data shown in modal popup
     $('#myprofileModal').on('shown.bs.modal', function (e) {
         var userdata = JSON.parse(localStorage.getItem("userData"));
         document.forms['myprofile']['username'].value = userdata.username;
@@ -207,4 +215,52 @@
         }
     }
 
+    // Delete selected todo's
+    function deleteTodos(){
+        document.getElementById("todo").innerHTML="";
+        let storeData = localStorage.getItem('storeTodoList');
+        // deleteallTodos.remove();
+        localStorage.removeItem('storeTodoList');
+        var deleteAllbtn = document.getElementById('deleteAll')
+        deleteAllbtn.classList += ' hide';
+    }
 
+    // Filter todo list
+    function filterTodos(){
+        let filterVal = document.getElementById('todoFilter').value;
+        let storeData = localStorage.getItem('storeTodoList');
+        todolistArr = JSON.parse(storeData);
+
+        switch(filterVal){
+            case 'Ascending':
+                todolistArr.sort((a,b)=> (a.name > b.name ? 1 : -1));
+                localStorage.setItem('storeTodoList', JSON.stringify(todolistArr));
+                showTodoList();
+            break;
+
+            case 'Descending':
+                todolistArr.sort((a,b)=> (a.name < b.name ? 1 : -1));
+                localStorage.setItem('storeTodoList', JSON.stringify(todolistArr));
+                showTodoList();
+            break;
+
+            case 'Done':
+                var todotrList = document.querySelectorAll('tr');
+                Array.from(todotrList).forEach(function(item, index){
+                    let completedTodo = item.classList.contains('completed');
+                    if(completedTodo){
+                        item.style.display = 'table-row';
+                    }else{
+                        item.style.display = 'none';
+                    }
+                })
+            break;
+
+            case 'Date':
+                todolistArr.sort((a,b)=> new Date(b.date) - new Date(a.date));
+                localStorage.setItem('storeTodoList', JSON.stringify(todolistArr));
+                showTodoList();
+                break;
+
+        }
+    }
