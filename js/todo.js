@@ -5,7 +5,7 @@
     let createtodoBtn = document.getElementById('createTodo');
     let updateTodobtn = document.getElementById('updateTodo');
 
-    createtodoBtn.addEventListener('click', function(){
+    createtodoBtn.addEventListener('click', function() {
         inputtodoVal = inputtodo.value;
         tododateVal = tododate.value;
         const list = {
@@ -13,11 +13,11 @@
             date: tododateVal,
             done: false
         }
-        if(inputtodoVal.trim().length != 0 && tododateVal.length != 0){
+        if (inputtodoVal.trim().length != 0 && tododateVal.length != 0) {
             let storeData = localStorage.getItem('storeTodoList');
-            if(storeData == null){
+            if (storeData == null) {
                 todolistArr = [];
-            }else{
+            } else {
                 todolistArr = JSON.parse(storeData);
             }
             todolistArr.push(list);
@@ -30,13 +30,13 @@
 
 
     // ShowTodo list
-    function showTodoList(){
+    function showTodoList() {
         let storeData = localStorage.getItem('storeTodoList');
         let userData = JSON.parse(localStorage.getItem('userData'));
         document.getElementById('navbarDropdown').innerText = userData.username;
-        if(storeData == null){
+        if (storeData == null) {
             todolistArr = [];
-        }else{
+        } else {
             todolistArr = JSON.parse(storeData);
         }
 
@@ -57,7 +57,7 @@
                     </tr>`
         });
         todoTable.innerHTML = tr;
-        if(todoTable.innerHTML.length > 0){
+        if (todoTable.innerHTML.length > 0) {
             var deleteAllbtn = document.getElementById('deleteAll')
             deleteAllbtn.classList.remove('hide');
         }
@@ -65,7 +65,7 @@
 
 
     // Update Todo's
-    function editTodo(index){
+    function editTodo(index) {
         let saveIndex = document.getElementById('saveIndex');
         let storeData = localStorage.getItem('storeTodoList');
         todolistArr = JSON.parse(storeData);
@@ -77,7 +77,7 @@
     }
 
 
-    updateTodobtn.addEventListener('click', function(){
+    updateTodobtn.addEventListener('click', function() {
         let storeData = localStorage.getItem('storeTodoList');
         let saveIndex = document.getElementById('saveIndex').value;
         let todolistArr = JSON.parse(storeData);
@@ -95,15 +95,14 @@
 
 
     //Delete todo's 
-    function deleteTodo(index){
+    function deleteTodo(index) {
         let storeData = localStorage.getItem('storeTodoList');
         todolistArr = JSON.parse(storeData);
         todolistArr.splice(index, 1);
-        if(todolistArr > 0){
-            localStorage.setItem('storeTodoList', JSON.stringify(todolistArr));
-        }else{
-            localStorage.removeItem('storeTodoList');
-            var deleteAllbtn = document.getElementById('deleteAll')
+        localStorage.setItem('storeTodoList', JSON.stringify(todolistArr));
+        document.getElementById('row_' + index).remove();
+        if (todolistArr == 0) {
+            var deleteAllbtn = document.getElementById('deleteAll');
             deleteAllbtn.classList += ' hide';
         }
         showTodoList();
@@ -112,42 +111,42 @@
 
     // Search todo's list
     let searchtodoList = document.getElementById('searchTodo');
-    searchtodoList.addEventListener('input', function(){
+    searchtodoList.addEventListener('input', function() {
         let todotrList = document.querySelectorAll('tr');
-        Array.from(todotrList).forEach(function(item){
+        Array.from(todotrList).forEach(function(item) {
             let searchText = item.getElementsByTagName('td')[1].innerText;
             let searchTextboxval = searchtodoList.value;
             // let regSearch = new RegExp(searchTextboxval, 'gi');
-            if(searchText.match(searchTextboxval)){
+            if (searchText.match(searchTextboxval)) {
                 item.style.display = 'table-row';
-            }else{
+            } else {
                 item.style.display = 'none';
             }
         })
     });
 
     // change status with checkbox selection
-    function changeStatus(index){
+    function changeStatus(index) {
         let storeData = localStorage.getItem('storeTodoList');
         todolistArr = JSON.parse(storeData);
-        let todostatus = document.getElementById('check_'+index);
-        if(todostatus.checked == true){
+        let todostatus = document.getElementById('check_' + index);
+        if (todostatus.checked == true) {
             todolistArr[index].done = true;
-            document.getElementById('row_'+index).classList = 'completed';
-        }else{
+            document.getElementById('row_' + index).classList = 'completed';
+        } else {
             todolistArr[index].done = false;
-            document.getElementById('row_'+index).classList.remove('completed');
+            document.getElementById('row_' + index).classList.remove('completed');
         }
         localStorage.setItem('storeTodoList', JSON.stringify(todolistArr));
     }
 
     // Logout button click redirect to the login page
-    function logout(){
+    function logout() {
         window.location.replace('index.html');
     }
 
     // myprofile user data shown in modal popup
-    $('#myprofileModal').on('shown.bs.modal', function (e) {
+    $('#myprofileModal').on('shown.bs.modal', function(e) {
         var userdata = JSON.parse(localStorage.getItem("userData"));
         document.forms['myprofile']['username'].value = userdata.username;
         document.forms['myprofile']['firstname'].value = userdata.firstname;
@@ -158,7 +157,7 @@
     })
 
     // Update profile
-        function updateprofile(){
+    function updateprofile() {
         var uname = document.forms['myprofile']['username'].value;
         var fname = document.forms['myprofile']['firstname'].value;
         var lname = document.forms['myprofile']['lastname'].value;
@@ -166,60 +165,60 @@
         var gen = document.forms['myprofile']['gender'].value;
         var addr = document.forms['myprofile']['address'].value;
         const userData = {}
-        if(uname == ""){
+        if (uname == "") {
             document.getElementById('uname').innerHTML = "Please enter a Username or Email Id";
             return false;
-        }else{
+        } else {
             userData.username = uname;
             localStorage.setItem('userData', JSON.stringify(userData));
         }
 
-        if(fname == ""){
+        if (fname == "") {
             document.getElementById('fname').innerHTML = "Please enter a first name";
             return false;
-        }else{
+        } else {
             userData.firstname = fname;
             localStorage.setItem('userData', JSON.stringify(userData));
         }
 
-        if(lname == ""){
+        if (lname == "") {
             document.getElementById('lname').innerHTML = "Please enter a last name";
             return false;
-        }else{
+        } else {
             userData.lastname = lname;
             localStorage.setItem('userData', JSON.stringify(userData));
         }
 
-        if(pass == ""){
+        if (pass == "") {
             document.getElementById('password').innerHTML = "Please enter a password";
             return false;
-        }else{
+        } else {
             userData.password = pass;
             localStorage.setItem('userData', JSON.stringify(userData));
         }
 
-        if(gen == ""){
+        if (gen == "") {
             document.getElementById('gender').innerHTML = "Please select your gender";
             return false;
-        }else{
+        } else {
             userData.gender = gen;
             localStorage.setItem('userData', JSON.stringify(userData));
         }
         // else if(/[^a-zA-Z]/.test(firstname)){
-            // alert("Please enter valid name");
+        // alert("Please enter valid name");
         // }
-        if(addr == ""){
+        if (addr == "") {
             document.getElementById('addr').innerHTML = "Please enter a address";
             return false;
-        }else{
+        } else {
             userData.address = addr;
             localStorage.setItem('userData', JSON.stringify(userData));
         }
     }
 
     // Delete selected todo's
-    function deleteTodos(){
-        document.getElementById("todo").innerHTML="";
+    function deleteTodos() {
+        document.getElementById("todo").innerHTML = "";
         let storeData = localStorage.getItem('storeTodoList');
         // deleteallTodos.remove();
         localStorage.removeItem('storeTodoList');
@@ -228,41 +227,57 @@
     }
 
     // Filter todo list
-    function filterTodos(){
+    function filterTodos() {
         let filterVal = document.getElementById('todoFilter').value;
         let storeData = localStorage.getItem('storeTodoList');
         todolistArr = JSON.parse(storeData);
 
-        switch(filterVal){
+        switch (filterVal) {
             case 'Ascending':
-                todolistArr.sort((a,b)=> (a.name > b.name ? 1 : -1));
+                todolistArr.sort((a, b) => (a.name > b.name ? 1 : -1));
                 localStorage.setItem('storeTodoList', JSON.stringify(todolistArr));
                 showTodoList();
-            break;
+                break;
 
             case 'Descending':
-                todolistArr.sort((a,b)=> (a.name < b.name ? 1 : -1));
+                todolistArr.sort((a, b) => (a.name < b.name ? 1 : -1));
                 localStorage.setItem('storeTodoList', JSON.stringify(todolistArr));
                 showTodoList();
-            break;
+                break;
 
             case 'Done':
                 var todotrList = document.querySelectorAll('tr');
-                Array.from(todotrList).forEach(function(item, index){
+                Array.from(todotrList).forEach(function(item, index) {
                     let completedTodo = item.classList.contains('completed');
-                    if(completedTodo){
+                    if (completedTodo) {
                         item.style.display = 'table-row';
-                    }else{
+                    } else {
                         item.style.display = 'none';
                     }
                 })
-            break;
+                break;
 
             case 'Date':
-                todolistArr.sort((a,b)=> new Date(b.date) - new Date(a.date));
+                todolistArr.sort((a, b) => new Date(b.date) - new Date(a.date));
                 localStorage.setItem('storeTodoList', JSON.stringify(todolistArr));
                 showTodoList();
-            break;
+                break;
+
+            case 'Pending':
+                var todotrList = document.querySelectorAll('tr');
+                var currentdate = new Date();
+                Array.from(todotrList).forEach(function(item, index) {
+                    let todoDate = item.getElementsByTagName('td')[2].innerText;
+                    let tdate = todoDate.split('-').reverse().join('-')
+                    mydate = new Date(tdate);
+                    if (currentdate > mydate) {
+                        item.style.display = 'table-row';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                })
+
+                break;
 
         }
     }
